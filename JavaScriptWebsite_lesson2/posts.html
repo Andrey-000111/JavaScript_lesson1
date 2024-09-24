@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <h1>Создать пост</h1>
+   <div>
+       <input type="text" id="post-header" placeholder="Введите заголовок">
+       <br><br>
+       <textarea id="post-content" placeholder="Введите контент"></textarea>
+       <br><br>
+       <button onclick="createPost()">Запостить</button>
+       </div>
+       
+       <script>
+    function createPost(){
+        const headerValue = document.getElementById("post-header").value;
+        const contentValue = document.getElementById("post-content").value;
+        
+        const postDiv = document.createElement("div");
+        
+        const postHeader = document.createElement("h2");
+        postHeader.textContent = headerValue;
+        postDiv.appendChild(postHeader);
+        
+        const postContent = document.createElement("p");
+        postContent.textContent = contentValue;
+        postDiv.appendChild(postContent);
+        
+        document.body.appendChild(postDiv);
+        
+    }
+           
+    </script>
+    
+</body>
+</html>
