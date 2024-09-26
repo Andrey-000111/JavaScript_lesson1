@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<style>
+    .box-container {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 10px;
+    }
+
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: darkgray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+    }
+</style>
+
+<body>
+
+    <div class="box-container">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+
+
+    </div>
+
+    <div>
+        <label>Выбрать цвет: </label>
+        <input type="color" id="colorPicker">
+        <input type="text" id="colorIndex">
+        <button id="apply">Применить цвета</button>
+    </div>
+
+    <script>
+        //строку 49 function() можно заменить на ()=>
+        document.getElementById("apply").addEventListener("click",
+            function() {
+                let colorIndex = document.querySelector("#colorIndex").value;
+                let pickedColor = document.querySelector("#colorPicker").value;
+                document.querySelectorAll(".box")[colorIndex-1].style.backgroundColor = pickedColor;
+            }
+        )
+    </script>
+
+</body></html>
