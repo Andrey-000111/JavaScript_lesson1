@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p>PROMESE 1</p>
+    <p>PROMESE 2</p>
+    <p>PROMESE 3</p>
+
+    <label>Status...</label>
+    <button id="loadHTML">load html</button>
+
+
+    <script>
+        var pArray = document.getElementsByTagName("p");
+        var p1 = pArray[0];
+        var p2 = pArray[1];
+        var p3 = pArray[2];
+        var statusText = document.getElementsByTagName("label")[0];
+
+
+        function promese1() {
+            return new Promise(
+                (resolve, reject) => {
+
+                    let status = Math.round(Math.random());
+                    let t = Math.round(Math.random() * 1000);
+
+                    setTimeout(
+                        () => {
+                            status ?
+                                resolve("resolve!") :
+                                reject("reject");
+                        },
+                        t
+                    )
+                }
+            )
+        }
+
+        function promese2() {
+            return new Promise(
+                (resolve, reject) => {
+
+                    let status = Math.round(Math.random());
+                    let t = Math.round(Math.random() * 1000);
+
+                    setTimeout(
+                        () => {
+                            status ?
+                                resolve("resolve!") :
+                                reject("reject");
+                        },
+                        t
+                    )
+                }
+            )
+        }
+
+        function promese3() {
+            return new Promise(
+                (resolve, reject) => {
+
+                    let status = Math.round(Math.random());
+                    let t = Math.round(Math.random() * 1000);
+
+                    setTimeout(
+                        () => {
+                            status ?
+                                resolve("resolve!") :
+                                reject("reject");
+                        },
+                        t
+                    )
+                }
+            )
+        }
+
+        promese1().then(
+            (value) => {
+                console.log(value);
+                p1.style.backgroundColor = "lightgreen";
+                return promese2();
+            },
+            (error) => {
+                console.log(error);
+                p1.style.backgroundColor = "red";
+                throw new Error("Critical Error!");
+            }
+        ).then(
+            (value) => {
+                console.log(value);
+                p2.style.backgroundColor = "lightgreen";
+                return promese3();
+            },
+            (error) => {
+                console.log(error);
+                p2.style.backgroundColor = "red";
+                throw new Error("Critical Error!");
+            }
+        ).then(
+            (value) => {
+                console.log(value);
+                p3.style.backgroundColor = "lightgreen";
+                loadHTML();
+            },
+            (error) => {
+                console.log(error);
+                p3.style.backgroundColor = "red";
+                throw new Error("Critical Error!");
+                loadHTML();
+            }
+        ).catch(
+            (error) => {
+                console.log(error);
+            }
+        )
+
+
+
+
+
+
+
+        function loadHTML() {
+            fetch("page.html")
+                .then(
+                    (response) => {
+                        if(!response.ok){
+                            throw new Error("Network response not ok!"+response.status);
+                        }
+                        return response.text();
+                    }
+                ).then(
+                    (htmlContent) => {
+                        statusText.innerHTML = htmlContent;
+                    }
+                )
+        }
+
+        document.getElementById("loadHTML").addEventListener(
+            'click',
+            () => {
+                loadHTML();
+            }
+        )
+    </script>
+</body></html>
