@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <img alt="Javascript Icon" id="image", width=200>
+
+    <script>
+        async function fetchImage() {
+            try {
+                const imageURL = 'https://www.simplilearn.com/ice9/free_resources_article_thumb/python_vs_javascript.jpg';
+
+                const response = await fetch(imageURL);
+                
+                if(!response.ok){
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+
+                console.log(response.url);
+                
+                document.getElementById('image').src=response.url;
+            } catch (error){
+                console.log("Error: ", error);
+            }
+        }
+
+        fetchImage();
+    </script>
+</body></html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <img alt="Unknow" id="pfp" width=200>
+    <div id="content">
+        <p>Имя: </p>
+        <p>Тип: </p>
+        <p>Вес: </p>        
+    </div>
+    
+    <script>
+    async function loadProfileData(){
+        try{
+            const response =await fetch('data.json');
+            
+            const data = await response.json();
+            
+            console.log(data);
+            
+            document.getElementById('pfp').src=data.image;
+            
+            document.getElementsByTagName('p')[0].textContent += data.name;
+            
+            document.getElementsByTagName('p')[1].textContent += data.type;
+            
+            document.getElementsByTagName('p')[2].textContent += data.weight;
+            
+        }catch (error){
+            
+        }
+    }
+        loadProfileData();
+    </script>
+</body>
+</html>

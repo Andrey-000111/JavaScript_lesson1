@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+    <img alt="item">
+
+    <script>
+        async function loadPokemon() {
+            const imgArray = document.getElementsByTagName('img');
+
+            for (let i = 0; i < imgArray.length; i += 1) {
+                let pokemonImg = await new Promise(
+                    (resolve) => {
+                        setTimeout(resolve(), Math.random() * 500);
+
+                    }
+                )                    
+                        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i+1}`);
+                        const data = await response.json();
+                        pokemonImg =  data.sprites.front_default;
+            
+                imgArray[i].src = pokemonImg;
+            }
+        }
+        loadPokemon();
+    </script>
+</body></html>
