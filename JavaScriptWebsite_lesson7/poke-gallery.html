@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="poke-gallery.css">
+</head>
+
+<body>
+    <header>
+        <h1>Pokemon Gallery</h1>
+    </header>
+
+    <div class="content">
+        <div class="gallery" id="gallery"></div>
+        <div class="page-menu" id="page-menu"></div>
+
+    </div>
+
+    <footer>
+        <p>Pokemon Gallery 2024</p>
+    </footer>
+
+    <script>
+        //создаем контейнер
+        const gallery = document.getElementById('gallery');
+        const containerList=[];
+        const galleryImgList = [];
+
+        const pokemoAmout = 126;
+        const pokemonPerPage = 30;
+        const pageMenu = document.getElementById('page-menu');
+        let currentPage = 1;
+        let prevButton;
+
+        function createGalleryContainers() {
+            for (let i = 0; i < pokemonPerPage; i += 1) {
+                const container = document.createElement('div');
+                container.className = 'gallery-item';
+
+                gallery.appendChild(container);
+                
+                containerList.push(container);
+
+                const img = document.createElement('img');
+                container.appendChild(img);
+
+                galleryImgList.push(img);
+            }
+        }
+
+        function createPageManu() {
+            const totalPages = Math.ceil(pokemoAmout / pokemonPerPage); //ceil округлить до целого
+
+            for (let i = 1; i <= totalPages; i += 1) {
+                const button = document.createElement('button');
+                button.textContent = i;
+
+                pageMenu.appendChild(button);
+
+                if (i === currentPage) {
+                    button.disabled = true;
+                    prevButton = button;
+                }
+
+                button.addEventListener('click',
+                    () => {
+                        currentPage = i;
+                        button.disabled = (i === currentPage);
+                        prevButton.disabled = false;
+                        prevButton = button;
+                        loadGallery();
+                    }
+                )
+            }
+        }
+
+        createGalleryContainers();
+        createPageManu();
+
+        function fakeDelay(ms) {
+            return new Promise(
+                (resolve) => setTimeout(
+                    () => resolve(),
+                    ms
+                )
+            )
+        }
+
+        //асинхронная функция для загрузки картинок
+        async function fetchPokemonIcon(id) {
+            await fakeDelay(Math.random() * 200);
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            const data = await response.json();
+            return data.sprites.front_default;
+        }
+
+        async function loadGallery() {
+            for(let i = 0; i < galleryImgList.length; i +=1){
+                galleryImgList[i].src = '';
+            }
+            
+            const start = (currentPage - 1) * pokemonPerPage;
+            const end = start + pokemonPerPage;
+
+            for (let i = start; i < end; i += 1) {
+                if (i < pokemoAmout) {
+                    galleryImgList[i-start].src = await fetchPokemonIcon(i + 1);
+                } else {
+                    galleryImgList[i-start].src = '';
+                    containerList[i-start].style.display = 'none';
+                }
+            }
+        }
+        loadGallery();
+    </script>
+
+</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

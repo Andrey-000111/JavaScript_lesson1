@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function fakeDelay(ms){
+            return new Promise(
+                (resolve) => setTimeout(
+                    () => resolve("test"),
+                    ms
+                )
+            )
+        }
+        
+        /*async function testDelay(){
+            await fakeDelay(1000);
+            console.log("delayed msg.");
+        }*/
+        
+        //testDelay();
+        
+        async function fetchData(taskName, delay){
+            console.log(`Starting ${taskName}`);
+            await fakeDelay(delay);
+            console.log(`${taskName} complete.`);
+        }
+        
+        //const task = fetchData("Some Task", Math.random() * 10000);
+        
+        async function runTasks(){
+            console.log("Starting all tasks.");
+            
+            const task1=fetchData("Task 1", Math.random()*10000);
+            const task2=fetchData("Task 2", Math.random()*10000);
+            const task3=fetchData("Task 3", Math.random()*10000);
+            
+            await Promise.all([task1,task2,task3]);
+            
+            console.log("All tasks comlete!");
+        }
+        
+        runTasks();
+        
+    </script>
+</body>
+</html>

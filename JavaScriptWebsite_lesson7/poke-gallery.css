@@ -1,0 +1,67 @@
+ body,
+ html {
+     margin: 0;
+     padding: 0;
+     height: 100%;
+     font-family: Arial, sans-serif;
+     display: flex;
+     flex-direction: column;
+ }
+
+ header {
+     background-color: #333;
+     color: white;
+     text-align: center;
+     padding: 10px 0;
+     position: sticky;
+     width: 100%;
+     top: 0;
+ }
+
+ footer {
+     background-color: #333;
+     color: white;
+     text-align: center;
+     padding: 10px 0;
+ }
+
+ .content {
+     flex: 1;
+ }
+
+ .gallery {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+     grid-gap: 10px;
+     padding: 20px;
+ }
+
+ .gallery-item {
+     min-height: 100px;
+     background-color: #f0f0f0;
+     border-radius: 8px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 10px;
+ }
+
+ .gallery-item img {
+     max-width: 100%;
+     height: auto;
+     max-height: 150px;
+     /* Set a maximum height for images */
+     object-fit: cover;
+     /* Ensures images cover the area without distortion */
+ }
+
+ .page-menu {
+     display: flex;
+     justify-content: center;
+     padding: 10px 0;
+ }
+
+ .page-menu button {
+     margin: 0 5px;
+     padding: 5px 10px;
+ }
