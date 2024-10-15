@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="poke-lazy-gallery.css">
+</head>
+
+<body>
+
+    <div id="gallery">
+
+    </div>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+        var currentId = 1;
+        var isLoading = false;
+
+        async function fetchPokemon(id) {
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            if (!response.ok) {
+                throw new Error('Network response not okay!');
+            }
+            const pokemon = await response.json();
+            return pokemon;
+        }
+
+        async function loadPokemon() {
+            if (isLoading) return;
+            
+            isLoading = true;
+            
+            const pokemon = await fetchPokemon(currentId);
+
+            const pokemonContainer = document.createElement('div');
+            pokemonContainer.className = 'pokemon-container';
+
+            gallery.appendChild(pokemonContainer);
+
+            const imgContainer = document.createElement('img');
+            imgContainer.className = 'image-container';
+            imgContainer.src = pokemon.sprites.front_default;
+
+            pokemonContainer.appendChild(imgContainer);
+
+            const textContainer = document.createElement('div');
+            textContainer.className = 'text-container';
+            textContainer.innerHTML = `<p> <strong>${pokemon.name}</strong> (ID: ${pokemon.id})</p>`;
+
+            pokemonContainer.appendChild(textContainer);
+
+            currentId++;
+            isLoading = false;
+        }
+        async function loadBatchPokemon(count) {
+            for (let i = 0; i < count; i++) {
+                await loadPokemon();
+            }
+        }
+
+        loadBatchPokemon(15);
+
+        window.addEventListener('scroll',
+            () => {
+                console.log("Scrolling!");
+                console.log("window.innerHeight", window.innerHeight);
+                console.log("window.scrollY", window.scrollY);
+                console.log("document.body.offsetHeight", document.body.offsetHeight);
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+                    loadPokemon();
+                }
+            }
+        )
+    </script>
+
+</body></html>
