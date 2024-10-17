@@ -1,0 +1,30 @@
+:root {
+    --loading-color-red: red;
+    --loading-color-white: white;
+}
+
+#loading-icon {}
+
+.spinner {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 15px;
+    border-left-color: var(--loading-color-red);
+    border-bottom-color: var(--loading-color-red);
+    border-right-color: var(--loading-color-white);
+    border-top-color: var(--loading-color-white);
+
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
