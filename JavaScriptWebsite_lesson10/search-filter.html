@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Product Search</h1>
+    <form id="searchForm" method="GET">
+        <input type="text" id="search" name="search">
+        <button>Search</button>
+
+        <h2>Products</h2>
+        <div id="productList">
+            <div class="product" data-name="Laptop">Laptop - 999$</div>
+            <div class="product" data-name="Smartphone">Smartphone - 400$</div>
+            <div class="product" data-name="Tablet">Tablet - 299$</div>
+        </div>
+
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('search');
+            console.log(query);
+
+            if (query) {
+                //document.getElementById('search')
+                const products = document.querySelectorAll('.product');
+
+                products.forEach(
+                    (product) => {
+                        const productName = product.getAttribute('data-name').toLowerCase();
+                        if (productName.includes(query.toLowerCase())) {
+                            product.style.display = '';
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    }
+                )
+            }
+        </script>
+    </form>
+</body></html>

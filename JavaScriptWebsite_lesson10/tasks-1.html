@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //1
+        const celsiusTemp = [0, 20, 30, 101];
+        const farenheitTemp = celsiusTemp.map(
+            (temp) => {
+                console.log("something");
+                return (temp * 9 / 5) + 32;
+            }
+        )
+
+        console.log(farenheitTemp);
+
+        //2 проходит по каждому массиву
+        const fruits = ['apple', 'banana', 'cherry'];
+        fruits.forEach(
+            (fruit, index) => console.log(`${index}: ${fruit}`)
+        )
+
+        //3
+        const fruit = 'banana';
+        const isPresent = fruits.includes(fruit);
+        console.log(isPresent ? `${fruit} is present.` : `${fruit} not present`)
+    </script>
+
+</body></html>
