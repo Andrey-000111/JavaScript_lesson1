@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="result"></div>
+    <a href="form-reg-4.html">Back</a>
+    <script>
+        console.log(localStorage['userData']);
+
+        const storedData = localStorage.getItem('userData');
+        const dataDiv = document.getElementById('result');
+
+        if (storedData) {
+            const userData = JSON.parse(storedData);
+            console.log(userData);
+            for (let key in userData) {
+                console.log(key, userData[key]);
+                const p = document.createElement('p');
+                if (key === 'pfp' && typeof userData[key] === 'object') {
+                    p.textContent = `File: ${userData[key].name} ${userData[key].size}, ${userData[key].type}`;
+                    
+                    const img = document.createElement('img');
+                    img.src = userData[key].data;
+                    img.alt = userData[key].name;
+                    img.style.maxWidth = '200px';
+                    dataDiv.appendChild(img);
+                } else {
+                    p.textContent = `${key}: ${userData[key]}`;
+
+                }
+                dataDiv.appendChild(p);
+            }
+        }
+    </script>
+</body></html>

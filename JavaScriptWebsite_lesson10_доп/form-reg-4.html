@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="form-reg.css">
+</head>
+
+<body>
+    <h1>Registration</h1>
+    <form id="regForm" action="form-reg-4-result.html" method="POST" target="blank">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="username">
+        <p id="errorName"></p>
+        <br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="password">
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="email">
+        <p id="errorEmail"></p>
+        <br><br>
+
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" placeholder="birthday">
+        <br><br>
+
+        <label for="pfp">Profile Picture:</label>
+        <input type="file" id="pfp" name="pfp" placeholder="pfp" accept="image/*">
+        <br><br>
+        <button>Register</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('regForm');
+
+        const name = document.getElementById('name');
+        
+        const errorName = document.getElementById('errorName');
+        
+        const email = document.getElementById('email');
+        
+        const errorEmail = document.getElementById('errorEmail');
+
+        function validateForm() {
+            console.log(vallidateName(name.value));
+            
+            
+            
+        }
+
+
+
+        function vallidateName(name) {
+            const regex = /^[a-zA-Z]+[0-9]+$/
+            const isValid = regex.test(name);
+            if(isValid){
+                errorName.textContent = 'Name is Valid.';
+                errorName.style.color='green';
+            } else{
+                errorName.textContent = "Name must letter then Number";
+                errorName.style.color = 'red';
+            }
+        }
+
+        name.addEventListener('input',
+            () => {
+                vallidateName(name.value);
+            }
+
+        )
+        
+        
+        
+        function validateEmail(email) {
+            const regex = /^[^@]+@[^@]+\.[^ @]+$/
+            const isValid = regex.test(email);
+            
+            if(isValid){
+                errorEmail.textContent = 'Name is Valid.';
+                errorEmail.style.color='green';
+            } else{
+                errorEmail.textContent = "Name must letter then Number";
+                errorEmail.style.color = 'red';
+            }
+        }
+
+
+        email.addEventListener('input',
+            () => {
+                validateEmail(email.value);
+            }
+
+        )
+
+
+        form.addEventListener('submit',
+            (event) => {
+                event.preventDefault();
+                const userData = {};
+                const formData = new FormData(form);
+                for (let [key, value] of formData.entries()) {
+                    console.log(key, value);
+                    if (key === 'pfp' && value instanceof File) {
+                        const reader = new FileReader();
+
+                        reader.readAsDataURL(value);
+
+                        reader.addEventListener('load',
+                            (event) => {
+                                console.log(event.target.result);
+                                userData[key] = {
+                                    name: value.name,
+                                    type: value.type,
+                                    size: value.size,
+                                    data: event.target.result
+                                };
+                                localStorage.setItem('userData', JSON.stringify(userData));
+
+                                window.location = "form-reg-4-result.html";
+
+                            }
+                        )
+
+
+                    } else {
+                        userData[key] = value;
+                    }
+                }
+
+            }
+        )
+    </script>
+</body></html>

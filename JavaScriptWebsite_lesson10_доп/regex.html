@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="input">
+    <button id="button"> Validate </button>
+    <p id="p">Message</p>
+    <script>
+        const input = document.getElementById('input');
+        const button = document.getElementById('button');
+        const p = document.getElementById('p');
+
+        button.addEventListener('click',
+            () => {
+                const str = input.value;
+                const isValid = reg1.test(str); // заменить на требуемый номер reg
+                p.textContent = isValid;
+            }
+        )
+
+//проверка требований корректного ввода
+        const reg1 = /a/
+        const reg1 = /abc/
+        const reg3 = /[a-z]/
+        const reg4 = /./ //. это любой символ
+        const reg5 = /a{3}/ // ищет три одинаковых символа
+        const reg6 = /^a/ // начальный символ должен быть a
+        const reg7 = /ab*c/ // произвольное кол-во символов
+        const reg8 = /^a|b/ // проверка либо а , либо b
+        
+    </script>
+</body></html>
