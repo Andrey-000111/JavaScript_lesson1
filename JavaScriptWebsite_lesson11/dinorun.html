@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css-styles/dinorun.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <div id="dino" class="dino"></div>
+        <div id="obstacle" class="obstacle"></div>
+    </div>
+
+    <script>
+        const dino = document.getElementById("dino");
+        const obstacle = document.getElementById('obstacle');
+
+        function jump() {
+            let position = 0;
+
+            let upInterval = setInterval(
+                () => {
+                    if (position >= 100) {
+                        clearInterval(upInterval);
+                        // падение вниз
+                        let downInterval = setInterval(
+                        ()=>{
+                            if(position <=0){
+                                clearInterval(downInterval);
+                            }
+                            position = -5;
+                            dino.style.bottom = position + 'px';
+                        }
+                        )
+                        
+                    } else {
+                        position += 10;
+                        dino.style.bottom = position + 'px';
+                    }
+                }, 20);
+
+        }
+
+
+        document.addEventListener('keydown',
+            (event) => {
+                if (event.key === ' ') {
+                    jump();
+                }
+            }
+
+        )
+
+        function checkCollision() {
+            const dinoStyle = window.getComputedStyle(dino);
+            const obstacleStyle = window.getComputedStyle(obstacle);
+
+            const dinoBottom = parseInt(dinoStyle.getPropertyValue("bottom"));
+            const obstacleLeft = parseInt(obstacleStyle.getPropertyValue("left"));
+
+            console.log(obstacleLeft);
+            if (obstacleLeft < 40) {
+                console.log("Game Over!");
+            }
+        }
+
+        setInterval(checkCollision, 100);
+    </script>
+
+
+</body></html>

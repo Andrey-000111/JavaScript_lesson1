@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css-styles/theory-game.css">
+</head>
+
+<body>
+    <input id="inputBox" type="text">
+    <button id="button">Парсить Строку</button>
+
+    <script>
+        let parseButton = document.getElementById("button");
+        let inputBox = document.getElementById("inputBox");
+
+        const vowelRegex = /^[aeiou]$/;
+        const consonantRegex = /^[qwrtypsdfghjkllzxcvbnm]$/;
+
+
+        function parseString() {
+            const inpStr = inputBox.value;
+
+            for (let char of inpStr) {
+                let lowerChar = char.toLowerCase();
+                if (vowelRegex.test(lowerChar)) {
+                    console.log(`${char} : Гласная`);
+                } else if (consonantRegex.test(lowerChar)) {
+                    console.log(`${char} : Согласная`);
+                } else if (!isNaN(char)) {
+                    console.log(`${char} : Число`);
+                }
+            }
+            inputBox.value = "";
+        }
+
+        parseButton.addEventListener("click", parseString);
+    </script>
+</body></html>
