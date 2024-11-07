@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Photo Editor</title>
+    <style>
+        body {
+            display: flex
+            justify-content: center
+            align-items: center
+            height: 100vh
+            margin: 0
+            background-color: #f0f0f0
+        }
+
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        canvas {
+            border: 1px solid #000;
+            margin-top: 10px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        label 
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="editor-container">
+        <input type="file" id="upload" accept="image/*">
+        <canvas id="canvas"></canvas>
+        <div class="controls">
+            <label>
+                Brightness
+                <input type="range" id="brightness" min="0" max="200" value="100">
+            </label>
+            <label>
+                Contrast
+                <input type="range" id="contrast" min="0" max="200" value="100">
+            </label>
+            <label>
+                Grayscale
+                <input type="range" id="grayscale" min="0" max="100" value="0">
+            </label>
+        </div>
+        <button id="save">Save Image</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvac');
+        const ctx = canvas.getContext('2d');
+        const upload = document.getElementById('upload');
+        const brightnessSlider = document.getElementById('brightness');
+        const contrastSlider = document.getElementById('contrast');
+
+        let img = new Image();
+
+        upload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function applyFilters() {
+            ctx.drawImage(img, 0, 0);
+
+            let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let data = imageData.data;
+
+            let brightness = parseInt(brightnessSlider.value);
+            let grayscale = parseInt(grayscaleSlider.value);
+
+            for (let i = 0; i < data.length; i += 4) {
+                // Apply brightness
+                data[i] = data[i] * (brightness / 100); // Red
+                data[i + 1] = data[i + 1] * (brightness / 100); // Green
+                data[i + 2] = data[i + 2] * (brightness / 100); // Blue
+
+                // Apply contrast
+                data[i] = ((data[i] - 128) * (contrast / 100)) + 128; // Red
+                data[i + 1] = ((data[i + 1] - 128) * (contrast / 100)) + 128; // Green
+                data[i + 2] = ((data[i + 2] - 128) * (contrast / 100)) + 128; // Blue
+
+                // Apply grayscale
+                let avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                data[i] = avg * (grayscale / 100) + data[i] * (1 - grayscale / 100);
+                data[i + 1] = avg * (grayscale / 100) + data[i + 1] * (1 - grayscale / 100);
+                data[i + 2] = avg * (grayscale / 100) + data[i + 2] * (1 - grayscale / 100);
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        brightnessSlider.addEventListener('click', applyFilters);
+        contrastSlider.addEventListener('input', applyFilters);
+        grayscaleSlider.addEventListener('input', applyFilters);
+
+        saveButton.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'edited-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body></html>
