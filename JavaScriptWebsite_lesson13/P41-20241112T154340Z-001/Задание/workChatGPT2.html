@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сохранение данных в XML</title>
+</head>
+<body>
+
+    <h1>Добавить книгу</h1>
+    <form id="bookForm">
+        <input type="text" id="title" placeholder="Название книги" required>
+        <input type="text" id="author" placeholder="Автор" required>
+        <input type="number" id="year" placeholder="Год публикации" required>
+        <input type="text" id="genre" placeholder="Жанр" required>
+        <button type="submit">Добавить книгу</button>
+    </form>
+
+    <button id="saveXml">Сохранить в XML</button>
+
+    <script>
+        function Book(title, author, year, genre) {
+            this.title = title;
+            this.author = author;
+            this.year = year;
+            this.genre = genre;
+        }
+
+        const books = [];
+
+        document.getElementById('bookForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const year = document.getElementById('year').value;
+            const genre = document.getElementById('genre').value;
+
+            const book = new Book(title, author, year, genre);
+            books.push(book);
+
+            // Очистка формы
+            this.reset();
+            console.log(books);
+        });
+
+        document.getElementById('saveXml').addEventListener('click', function() {
+            const xmlData = convertToXML(books);
+            downloadXML(xmlData, 'books.xml');
+        });
+
+        function convertToXML(books) {
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>n<books>n';
+            books.forEach(book => {
+                xml += '  <book>n';
+                xml +=     <title>${book.title}</title>n;
+                xml +=     <author>${book.author}</author>n;
+                xml +=     <year>${book.year}</year>n;
+                xml +=     <genre>${book.genre}</genre>n;
+                xml += '  </book>n';
+            });
+            xml += '</books>';
+            return xml;
+        }
+
+        function downloadXML(data, filename) {
+            const blob = new Blob([data], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+
+</body>
+</html>

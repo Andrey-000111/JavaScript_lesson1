@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // Сериализация объекта в JSON
+        const obj = {
+            name: "Alice",
+            age: 25
+        };
+        const jsonString = JSON.stringify(obj);
+        
+        // Парсинг JSON в объект
+        const parsedObj = JSON.parse(jsonString);
+        
+        console.log("obj:", obj);
+        console.log("jsonString:", jsonString);
+        console.log("parsedObj:", parsedObj);
+
+        // Пример с массивом
+        const array = [1, 2, 3, {
+            a: "b"
+        }];
+        const jsonArrayString = JSON.stringify(array);
+        const parsedArray = JSON.parse(jsonArrayString);
+        
+        console.log("array:", array);
+        console.log("jsonArrayString:", jsonArrayString);
+        console.log("parsedArray:", parsedArray);
+
+        // Обработка ошибок при парсинге
+        try {
+            const invalidJson = '{"name": "Alice", "age": 25'; // Некорректный JSON
+            const parsedData = JSON.parse(invalidJson);
+        } catch (error) {
+            console.error("ОШИБКА ПАРСИНГА:", error);
+        }
+    </script>
+</body></html>

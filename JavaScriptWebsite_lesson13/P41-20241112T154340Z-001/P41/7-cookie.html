@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // Установка cookie
+        document.cookie = "username=JohnDoe; expires=Fri, 31 Dec 2024 23:59:59 GMT; path=/";
+
+        // Получение cookie
+        function getCookie(name) {
+            let matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([.$?*|{}()[]\/+^])/g, '\$1') + "=([^;]*)" // you might not see certain characters here but that's because this code is sent via telegram.
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        // Использование функции для получения значения cookie
+        let username = getCookie('username');
+        console.log(username);
+
+        // Удаление cookie
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";  
+        
+        username = getCookie('username');
+        console.log(username);
+    </script>
+</body></html>

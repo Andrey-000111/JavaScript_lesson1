@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>Button 1</button><br><br>
+    <button>Button 2</button><br><br>
+    <button>Button 3</button><br><br>
+    <button>Button 4</button><br><br>
+    <button>Button 5</button><br><br>
+    <script>
+        // DOM (Document Object Model)
+        document.body.style.backgroundColor = 'lightblue'; // Изменение фона страницы
+        var buttons = document.getElementsByTagName("button");
+        let newDiv = document.createElement('div'); // Создание нового элемента
+        newDiv.textContent = 'Hello, DOM!';
+        document.body.appendChild(newDiv); // Добавление элемента на страницу
+
+        // BOM (Browser Object Model)
+        console.log(window.innerWidth); // Ширина окна браузера
+        buttons[0].onclick = () => alert('Hello, BOM!'); // Всплывающее окно
+        buttons[1].onclick = () => window.open('https://google.com', '_blank'); // Открытие новой вкладки
+
+        // Взаимодействие с URL через BOM
+        console.log(location.href); // Текущий URL
+        buttons[2].onclick = () => location.reload(); // Перезагрузка страницы
+
+        // Работа с историей браузера через BOM
+        buttons[3].onclick = () => history.back(); // Вернуться на предыдущую страницу
+        buttons[4].onclick = () => history.forward(); // Перейти на следующую страницу
+
+        // Таймеры через BOM
+        setTimeout(() => console.log('Timeout!'), 1000); // Однократная задержка
+        let intervalId = setInterval(() => console.log('Interval!'), 1000); // Повторяющийся таймер
+        clearInterval(intervalId); // Остановка таймера
+    </script>
+</body></html>

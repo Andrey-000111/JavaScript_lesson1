@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="myButton1">Click me</button>
+
+    <br>
+    <br>
+
+    <div id="outerDiv">
+        <div id="innerDiv">
+            <button id="myButton2">Click me 2</button>
+        </div>
+    </div>
+
+
+    <script>
+        // HTML: <button id="myButton">Click me</button>
+
+        document.getElementById('myButton1').addEventListener('click', function() {
+            console.log('Кнопка нажала! #1');
+        });
+
+        // Или с использованием стрелочной функции
+        document.getElementById('myButton1').addEventListener('click', () => {
+            console.log('Кнопка нажала! #2');
+        });
+        
+        // Событие щелчка с использованием onClick
+        document.getElementById('myButton1').onclick = () => {
+            console.log('Кнопка нажала! #3');
+        };
+        
+        // Событие щелчка с использованием onClick
+        document.getElementById('myButton1').onclick = () => {
+            console.log('Кнопка нажала! #4');
+        };
+
+
+        // HTML: 
+        // <div id="outerDiv">
+        //   <div id="innerDiv">
+        //     <button id="myButton">Click me</button>
+        //   </div>
+        // </div>
+
+        // Демонстрация фазы захвата, цели и пузырькования
+        document.getElementById('outerDiv').addEventListener('click', () => {
+            console.log('Нажат внешний DIV - всплытие');
+        }, false);
+
+        document.getElementById('innerDiv').addEventListener('click', () => {
+            console.log('Нажат внутренний DIV - всплытие');
+        }, false);
+
+        document.getElementById('outerDiv').addEventListener('click', () => {
+            console.log('Нажат внешний DIV - погружение');
+        }, true);
+
+        document.getElementById('innerDiv').addEventListener('click', () => {
+            console.log('Нажат внутренний DIV - погружение');
+        }, true);
+
+        document.getElementById('myButton2').addEventListener('click', (event) => {
+            console.log('Кнопка нажата – цель');
+            //event.stopPropagation(); // Остановить дальнейшее всплытие
+        });
+    </script>
+</body></html>

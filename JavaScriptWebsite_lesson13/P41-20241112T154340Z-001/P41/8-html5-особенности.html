@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 & JavaScript</title>
+</head>
+
+<body>
+
+    <!-- HTML5 Семантические элементы -->
+    <!-- <header>, <nav>, <main>, <article>, <section>, <footer> -->
+    <header>
+        <h1>My Website</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <h2>Article Title</h2>
+            <p>This is an article. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit doloremque pariatur quae quasi fugit molestiae, mollitia nesciunt doloribus nemo dignissimos ab modi. Laborum quibusdam eos aliquam, ducimus nesciunt eligendi, excepturi fuga libero deleniti suscipit quam.</p>
+        </article>
+
+        <section>
+            <h3>Section</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, eum eveniet ex, reprehenderit sed provident saepe cumque distinctio, beatae atque voluptates minus quisquam tempora, laboriosam.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 My Website</p>
+    </footer>
+
+    <script>
+
+        // Local Storage
+        localStorage.setItem('key', 'value');
+        console.log(localStorage.getItem('key'));
+
+        // Geolocation API
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                console.log('Latitude:', position.coords.latitude);
+                console.log('Longitude:', position.coords.longitude);
+            });
+        }
+
+        // Canvas API
+        const canvas = document.createElement('canvas');
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = 'green';
+        ctx.fillRect(10, 10, 100, 100);
+    </script>
+
+</body></html>

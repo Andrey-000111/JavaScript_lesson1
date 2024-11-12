@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // Переменные
+        var x;
+        let y = "y";
+        const z = 20;
+
+        x = "привет";
+        y = 123;
+
+        // Условия
+        if (y < z) {
+            console.log(`y:${y} меньше z:${z}`);
+        } else {
+            console.log(`y:${y} больше или равно z:${z}`);
+        }
+
+        // Циклы
+        for (let i = 0; i < 5; i++) {
+            console.log(i);
+        }
+
+        let j = 0;
+        while (j < 5) {
+            console.log(j);
+            j++;
+        }
+
+        // Строки
+        let str = "Привет, мир!";
+        console.log(str.length);
+        console.log(str.toUpperCase());
+
+        // Массивы
+        let arr = [1, 2, 3, 4, 5];
+        arr.push(6);
+        console.log(arr);
+        console.log(arr[2]);
+
+        // Функции
+        function add(a, b) {
+            return a + b;
+        }
+        console.log(add(3, 4));
+
+        // Стрелочные функции
+        const multiply = (a, b) => a * b;
+        console.log(multiply(3, 4));
+
+        // Объекты
+        let person = {
+            name: "Джон",
+            age: 30,
+            greet: function() {
+                console.log("Привет, " + this.name);
+            }
+        };
+        person.greet();
+
+        // Работа с массивами
+        arr.forEach(num => console.log(num));
+        let doubled = arr.map(num => num * 2);
+        console.log(doubled);
+
+        const words = ['spray', 'elite', 'exuberant', 'destruction', 'present'];
+        const result = words.filter((word) => word.length > 6);
+        console.log("words filter:", result);
+
+        // Деструктуризация
+        let [first, second] = arr;
+        console.log("arr 1 & 2:",first, second);
+
+        let a, b, other;
+        [a, b] = [10, 20];
+
+        console.log("a:",a);
+        //output: 10
+
+        console.log("b:",b);
+        //output: 20
+
+        [a, b, ...other] = [10, 20, 30, 40, 50];
+        
+        console.log("other:", other);
+
+        let {
+            name,
+            age
+        } = person;
+        console.log(name, age);
+
+        // Шаблонные строки
+        let greeting = `Привет,меня зовут ${name}и мне ${age} лет.`;
+        console.log(greeting);
+
+        // Замыкания
+        function counter() {
+            let count = 0;
+            return function() {
+                count++;
+                return count;
+            };
+        }
+        const increment = counter();
+        console.log(increment());
+        console.log(increment());
+
+    </script>
+</body>
+
+</html>

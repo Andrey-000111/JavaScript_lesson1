@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // Класс
+        class Animal {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            speak() {
+                console.log(`${this.name} издает звук.`);
+            }
+        }
+
+        // Наследование
+        class Dog extends Animal {
+            constructor(name, age, breed) {
+                super(name, age);
+                this.breed = breed;
+            }
+            speak() {
+                console.log(`${this.name} лает.`);
+            }
+        }
+
+        // Инкапсуляция
+        class Cat {
+            #name;
+            constructor(name) {
+                this.#name = name;
+            }
+            getName() {
+                return this.#name;
+            }
+        }
+
+        // Полиморфизм
+        const animals = [new Animal("Животное", 5), new Dog("Рекс", 3, "Лабрадор")];
+        animals.forEach(animal => animal.speak());
+
+        // Создание объектов
+        const dog = new Dog("Бобик", 4, "Бульдог");
+        dog.speak();
+
+        const cat = new Cat("Мурка");
+        console.log(cat.getName());
+    </script>
+</body></html>

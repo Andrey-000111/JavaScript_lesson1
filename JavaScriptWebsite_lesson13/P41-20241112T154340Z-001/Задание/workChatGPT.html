@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+    function Book(title, author, year, genre) {
+    this.title = title;
+    this.author = author;
+    this.year = year;
+    this.genre = genre;
+
+    this.getInfo = function() {
+        return (`Название: ${this.title}, Автор: ${this.author}, Год: ${this.year}, Жанр: ${this.genre}`);
+    };
+}
+
+// Примеры использования
+const book1 = new Book('1984', 'Джордж Оруэлл', 1949, 'Антиутопия');
+console.log(book1.getInfo());
+
+const book2 = new Book('Гарри Поттер и философский камень', 'Джоан Роулинг', 1997, 'Фэнтези');
+console.log(book2.getInfo());
+
+    </script>
+    
+</body>
+</html>

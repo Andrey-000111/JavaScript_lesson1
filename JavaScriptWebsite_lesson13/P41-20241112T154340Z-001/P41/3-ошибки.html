@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        try {
+            // Код, который может вызвать ошибку
+            let result = riskyOperation();
+            console.log(result);
+        } catch (error) {
+            // Обработка ошибки
+            console.error('Произошла ошибка:', error.message);
+        } finally {
+            // Код, который выполнится в любом случае
+            console.log('Завершение операции.');
+        }
+
+        // Пример функции, которая может вызвать ошибку
+        function riskyOperation() {
+            if (Math.random() > 0.5) {
+                throw new Error('Случайная ошибка!');
+            }
+            return 'Успех!';
+        }
+    </script>
+</body></html>

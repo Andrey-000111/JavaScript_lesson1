@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // Создание XMLHttpRequest
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log("USERS:", JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.send();
+
+
+    </script>
+</body></html>
