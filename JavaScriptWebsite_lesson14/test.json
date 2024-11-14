@@ -1,0 +1,28 @@
+{
+    "employees": [
+        {
+            "id": 1,
+            "name": "Иван Иванов",
+            "age": 30,
+            "department": "Маркетинг"
+        },
+        {
+            "id": 2,
+            "name": "Анна Петрова",
+            "age": 28,
+            "department": "Разработка"
+        },
+        {
+            "id": 3,
+            "name": "Сергей Сидоров",
+            "age": 35,
+            "department": "Продажи"
+        }
+    ],
+    "company": {
+        "name": "Примерная Компания",
+        "location": "Москва",
+        "established": 2010
+    },
+    "isActive": true
+}

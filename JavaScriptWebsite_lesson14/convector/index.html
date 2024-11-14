@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заметки</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Список Заметок</h1>
+    <input type="text" id="noteInput" placeholder="Введите заметку">
+    <button id="addNoteButton">Добавить заметку</button>
+    <br><br>
+    <button id="saveToExcelButton">Сохранить в Excel</button>
+    
+    <h2>Заметки:</h2>
+    <ul id="notesList"></ul>
+
+    <h2>Лог действий:</h2>
+    <ul id="logList"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        const notes = []; // Массив для хранения заметок
+
+        // Добавление заметки
+        document.getElementById('addNoteButton').addEventListener('click', function() {
+            const noteInput = document.getElementById('noteInput');
+            const noteText = noteInput.value.trim();
+
+            if (noteText) {
+                addNoteToList(noteText);
+                logAction(`Добавлена заметка: ${noteText}`);
+                notes.push(noteText); // Добавляем заметку в массив
+                noteInput.value = ''; // Очистить поле ввода
+            }
+        });
+
+        // Функция для отображения заметки в списке
+        function addNoteToList(note) {
+            const notesList = document.getElementById('notesList');
+            
+            const li = document.createElement('li');
+            li.textContent = note;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Удалить';
+            
+            deleteButton.addEventListener('click', function() {
+                notesList.removeChild(li);
+                logAction(`Удалена заметка: ${note}`);
+                const index = notes.indexOf(note);
+                if (index > -1) {
+                    notes.splice(index, 1); // Удаляем заметку из массива
+                }
+            });
+
+            li.appendChild(deleteButton);
+            notesList.appendChild(li);
+        }
+
+        // Логирование действий
+        function logAction(action) {
+            console.log(action); // Логируем в консоль
+
+            const logList = document.getElementById('logList');
+            const logItem = document.createElement('li');
+            logItem.textContent = action;
+            
+            logList.appendChild(logItem);
+        }
+
+        // Функция для сохранения заметок в Excel
+        document.getElementById('saveToExcelButton').addEventListener('click', function() {
+            if (notes.length === 0) {
+                alert("Нет заметок для сохранения!");
+                return;
+            }
+            
+            const ws = XLSX.utils.json_to_sheet(notes.map(note => ({ Заметка: note })));
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Заметки");
+            XLSX.writeFile(wb, "notes.xlsx");
+        });
+    </script>
+</body>
+</html>
+

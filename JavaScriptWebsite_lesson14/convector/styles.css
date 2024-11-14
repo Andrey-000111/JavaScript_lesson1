@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#saveToExcelButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#saveToExcelButton:hover {
+    background-color: #218;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #e9ecef;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li button {
+    background-color: #dc3545;
+}
+
+/* Добавьте этот код в конец вашего файла styles.css */
+
+#logList {
+    margin-top: 20px;
+    padding: 0;
+}
+
+#logList li {
+    background: #d1ecf1;
+    padding: 5px;
+    margin-bottom: 5px;
+}
