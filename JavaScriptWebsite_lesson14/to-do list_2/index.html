@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список дел</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Список дел</h1>
+    <input type="text" id="taskInput" placeholder="Введите задачу">
+    <button id="addTaskBtn">Добавить задачу</button>
+    <button id="downloadBtn">Скачать в XLSX</button>
+    
+    <ul id="taskList"></ul>
+
+    <script>
+        // Получение задач из localStorage
+        function getTasks() {
+            return JSON.parse(localStorage.getItem('tasks')) || [];
+        }
+
+        // Сохранение задач в localStorage
+        function saveTasks(tasks) {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // Отображение задач на странице
+        function renderTasks() {
+            const tasks = getTasks();
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = 
+                    `<span>"${task.text}"</span>
+                    <button onclick="editTask(${index})">Редактировать</button>
+                    <button onclick="deleteTask(${index})">Удалить</button>`
+                ;
+                taskList.appendChild(li);
+            });
+        }
+
+        // Добавление задачи
+        document.getElementById('addTaskBtn').addEventListener('click', () => {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                const tasks = getTasks();
+                tasks.push({ text: taskText });
+                saveTasks(tasks);
+                taskInput.value = '';
+                renderTasks();
+            }
+        });
+
+        // Редактирование задачи
+        window.editTask = function(index) {
+            const tasks = getTasks();
+            const newText = prompt("Редактировать задачу:", tasks[index].text);
+            if (newText !== null) {
+                tasks[index].text = newText.trim();
+                saveTasks(tasks);
+                renderTasks();
+            }
+        };
+
+        // Удаление задачи
+        window.deleteTask = function(index) {
+            const tasks = getTasks();
+            tasks.splice(index, 1);
+            saveTasks(tasks);
+            renderTasks();
+        };
+
+        // Скачивание задач в формате XLSX
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const tasks = getTasks();
+            const worksheet = XLSX.utils.json_to_sheet(tasks.map(task => ({
+                Задача: task.text
+            })));
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Задачи");
+            XLSX.writeFile(workbook, "tasks.xlsx");
+        });
+
+        // Инициализация приложения
+        renderTasks();
+    </script>
+</body>
+</html>
